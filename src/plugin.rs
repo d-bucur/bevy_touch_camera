@@ -47,18 +47,13 @@ impl Default for TouchCameraConfig {
 #[derive(Component)]
 pub struct TouchCameraTag;
 
-#[derive(PartialEq)]
+#[derive(PartialEq, Default)]
 enum GestureType {
+    #[default]
     None,
     Pan,
     Pinch,
     PinchCancelled,
-}
-
-impl Default for GestureType {
-    fn default() -> Self {
-        GestureType::None
-    }
 }
 
 #[derive(Resource, Default)]
@@ -107,7 +102,7 @@ fn touch_pan_zoom(
     };
     let touches: Vec<&touch::Touch> = touches_res.iter().collect();
 
-    if touches.len() == 0 {
+    if touches.is_empty() {
         tracker.gesture_type = GestureType::None;
         tracker.last_touch_a = None;
         tracker.last_touch_b = None;
@@ -123,17 +118,17 @@ fn touch_pan_zoom(
     if touches.len() == 2 {
         tracker.gesture_type = GestureType::Pinch;
         // complicated way to reset previous position to prevent some bugs. Should simplify
-        let last_a = if tracker.last_touch_b == None {
+        let last_a = if tracker.last_touch_b.is_none() {
             touches[0].position()
         } else {
             tracker.last_touch_a.unwrap_or(touches[0].position())
         };
-        let last_b = if tracker.last_touch_b == None {
+        let last_b = if tracker.last_touch_b.is_none() {
             touches[1].position()
         } else {
             tracker.last_touch_b.unwrap_or(touches[1].position())
         };
-        
+
         let delta_a = touches[0].position() - last_a;
         let delta_b = touches[1].position() - last_b;
         let delta_total = (delta_a + delta_b).length();
@@ -151,10 +146,7 @@ fn touch_pan_zoom(
         tracker.last_touch_a = Some(touches[0].position());
         tracker.last_touch_b = Some(touches[1].position());
     } else if touches.len() == 1
-        && match tracker.gesture_type {
-            GestureType::None | GestureType::Pan => true,
-            _ => false,
-        }
+        && matches!(tracker.gesture_type, GestureType::None | GestureType::Pan)
     {
         if tracker.gesture_type == GestureType::None {
             tracker.camera_start_pos = transform.translation;
