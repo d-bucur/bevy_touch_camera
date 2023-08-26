@@ -93,7 +93,9 @@ fn touch_pan_zoom(
     config: Res<TouchCameraConfig>,
     time: Res<Time>,
 ) {
-    let (mut transform, mut projection) = camera_q.single_mut();
+    let Ok((mut transform, mut projection)) = camera_q.get_single_mut() else {
+        return
+    };
     let touches: Vec<&touch::Touch> = touches_res.iter().collect();
 
     if touches.len() == 0 {
