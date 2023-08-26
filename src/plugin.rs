@@ -1,4 +1,11 @@
-use bevy::{prelude::{App, Plugin, PostStartup, Update, Resource, Component, Vec3, Vec2, Query, With, Commands, Entity, info, error, Transform, Touches, Res, ResMut, Camera, OrthographicProjection}, time::Time, input::touch};
+use bevy::{
+    input::touch,
+    prelude::{
+        error, info, App, Camera, Commands, Component, Entity, OrthographicProjection, Plugin,
+        PostStartup, Query, Res, ResMut, Resource, Touches, Transform, Update, Vec2, Vec3, With,
+    },
+    time::Time,
+};
 
 #[derive(Default)]
 pub struct TouchCameraPlugin {
@@ -7,12 +14,10 @@ pub struct TouchCameraPlugin {
 
 impl Plugin for TouchCameraPlugin {
     fn build(&self, app: &mut App) {
-        app
-            .insert_resource(TouchTracker::default())
+        app.insert_resource(TouchTracker::default())
             .insert_resource(self.config.clone())
             .add_systems(PostStartup, setup)
-            .add_systems(Update, touch_pan_zoom)
-        ;
+            .add_systems(Update, touch_pan_zoom);
     }
 }
 
@@ -68,10 +73,14 @@ struct TouchTracker {
     pub last_touch_b: Option<Vec2>,
 }
 
-fn setup(tag_query: Query<&TouchCameraTag, With<Camera>>, camera_query: Query<Entity, With<Camera>>, mut commands: Commands) {
+fn setup(
+    tag_query: Query<&TouchCameraTag, With<Camera>>,
+    camera_query: Query<Entity, With<Camera>>,
+    mut commands: Commands,
+) {
     if !tag_query.is_empty() {
         info!("TouchCameraPlugin initialized: found a tag attached to a camera");
-        return
+        return;
     }
     if camera_query.is_empty() {
         error!("TouchCameraPlugin found no camera to use. Please attach the TouchCameraTag to a camera manually or create a camera before the PostUpdate schedule");
@@ -94,7 +103,7 @@ fn touch_pan_zoom(
     time: Res<Time>,
 ) {
     let Ok((mut transform, mut projection)) = camera_q.get_single_mut() else {
-        return
+        return;
     };
     let touches: Vec<&touch::Touch> = touches_res.iter().collect();
 
@@ -114,25 +123,39 @@ fn touch_pan_zoom(
     if touches.len() == 2 {
         tracker.gesture_type = GestureType::Pinch;
         // complicated way to reset previous position to prevent some bugs. Should simplify
-        let last_a = if tracker.last_touch_b == None { touches[0].position() } else { tracker.last_touch_a.unwrap_or(touches[0].position()) };
-        let last_b = if tracker.last_touch_b == None { touches[1].position() } else { tracker.last_touch_b.unwrap_or(touches[1].position()) };
+        let last_a = if tracker.last_touch_b == None {
+            touches[0].position()
+        } else {
+            tracker.last_touch_a.unwrap_or(touches[0].position())
+        };
+        let last_b = if tracker.last_touch_b == None {
+            touches[1].position()
+        } else {
+            tracker.last_touch_b.unwrap_or(touches[1].position())
+        };
+        
         let delta_a = touches[0].position() - last_a;
         let delta_b = touches[1].position() - last_b;
         let delta_total = (delta_a + delta_b).length();
         let dot_delta = delta_a.dot(delta_b);
-        if dot_delta > config.opposites_tolerance { return }
+        if dot_delta > config.opposites_tolerance {
+            return;
+        }
 
         let distance_current = touches[0].position() - touches[1].position();
         let distance_prev = touches[0].previous_position() - touches[1].previous_position();
         let pinch_direction = distance_prev.length() - distance_current.length();
-        projection.scale += pinch_direction.signum() * delta_total * config.zoom_sensitivity * projection.scale;
+        projection.scale +=
+            pinch_direction.signum() * delta_total * config.zoom_sensitivity * projection.scale;
 
         tracker.last_touch_a = Some(touches[0].position());
         tracker.last_touch_b = Some(touches[1].position());
-    } else if touches.len() == 1 && match tracker.gesture_type {
-        GestureType::None | GestureType::Pan => true,
-        _ => false,
-    } {
+    } else if touches.len() == 1
+        && match tracker.gesture_type {
+            GestureType::None | GestureType::Pan => true,
+            _ => false,
+        }
+    {
         if tracker.gesture_type == GestureType::None {
             tracker.camera_start_pos = transform.translation;
             tracker.time_start_touch = time.elapsed_seconds();
@@ -143,9 +166,9 @@ fn touch_pan_zoom(
             return;
         }
         let distance = Vec3::new(touches[0].distance().x, -touches[0].distance().y, 0.);
-        transform.translation = tracker.camera_start_pos - config.drag_sensitivity * distance * projection.scale;
+        transform.translation =
+            tracker.camera_start_pos - config.drag_sensitivity * distance * projection.scale;
         tracker.last_touch_a = Some(touches[0].position());
         tracker.last_touch_b = None;
     }
-
 }

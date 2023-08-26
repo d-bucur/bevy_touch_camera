@@ -1,5 +1,5 @@
 use bevy::prelude::*;
-use bevy_touch_camera::{TouchCameraPlugin, TouchCameraConfig, TouchCameraTag};
+use bevy_touch_camera::{TouchCameraConfig, TouchCameraPlugin, TouchCameraTag};
 
 fn main() {
     let config = TouchCameraConfig {
@@ -8,13 +8,13 @@ fn main() {
         ..Default::default()
     };
     App::new()
-       .add_plugins((
+        .add_plugins((
             DefaultPlugins,
             TouchCameraPlugin {
                 config: TouchCameraConfig {
                     zoom_sensitivity: 0.01,
                     ..Default::default()
-                }
+                },
             },
         ))
         .add_systems(Startup, setup)
