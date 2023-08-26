@@ -16,8 +16,8 @@ features = [
 ]
 
 [features]
-default = []
-example = ["bevy/bevy_winit", "bevy/x11", "bevy/bevy_core_pipeline", "bevy/bevy_sprite"]
+default = ["bevy/bevy_core_pipeline"]
+example = ["bevy/bevy_winit", "bevy/x11", "bevy/bevy_sprite"]
 
 [[example]]
 name = "simple"

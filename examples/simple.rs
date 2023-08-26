@@ -1,5 +1,5 @@
 use bevy::prelude::*;
-use bevy_touch_camera::{TouchCameraPlugin, TouchCameraConfig};
+use bevy_touch_camera::{TouchCameraPlugin, TouchCameraConfig, TouchCameraTag};
 
 fn main() {
     let config = TouchCameraConfig {
@@ -22,7 +22,7 @@ fn main() {
 }
 
 fn setup(mut cmds: Commands) {
-    cmds.spawn(Camera2dBundle::default());
+    cmds.spawn((Camera2dBundle::default(), TouchCameraTag));
 
     // Rectangle
     cmds.spawn(SpriteBundle {
