@@ -17,4 +17,4 @@ features = [
 
 [[example]]
 name = "simple"
-required-features = ["bevy/bevy_winit", "bevy/x11", "bevy/bevy_core_pipeline"]
+required-features = ["bevy/bevy_winit", "bevy/x11", "bevy/bevy_core_pipeline", "bevy/bevy_sprite"]

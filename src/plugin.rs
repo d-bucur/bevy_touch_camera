@@ -2,7 +2,7 @@ use bevy::{prelude::{App, Plugin, PostStartup, Update, Resource, Component, Vec3
 
 #[derive(Default)]
 pub struct TouchCameraPlugin {
-    config: TouchCameraConfig,
+    pub config: TouchCameraConfig,
 }
 
 impl Plugin for TouchCameraPlugin {
