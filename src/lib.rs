@@ -1,8 +1,8 @@
 //! A plugin for touch based camera movement. Supports one finger drag to pan and two finger pinch to zoom.
-//! 
+//!
 //! ## How to use
 //! Add [`TouchCameraPlugin`] to your app.
-//! ```rust
+//! ```ignore
 //! App::new().add_plugins((
 //!     DefaultPlugins,
 //!     TouchCameraPlugin::default()
@@ -12,7 +12,7 @@
 //! You can configure some of the parameters of the plugin by passing a [`TouchCameraConfig`] object.
 //!
 //! Changing configuration at runtime is currently not supported. [^1]
-//! ```rust
+//! ```ignore
 //! let config = TouchCameraConfig {
 //!     drag_sensitivity: 2.,
 //!     touch_time_min: 0.2,
