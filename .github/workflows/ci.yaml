@@ -8,6 +8,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
+      - uses: dtolnay/rust-toolchain@stable
       - uses: actions/cache@v3
         with:
           path: |
@@ -20,7 +21,6 @@ jobs:
           # will try to use previous cache if there was a miss. Might still be useful, but would increase
           # cache size continuously when updating dependencies
           restore-keys: ${{ runner.os }}-cargo-
-      - uses: dtolnay/rust-toolchain@stable
       - run: cargo build
       - run: cargo test
         if: always()
