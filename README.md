@@ -33,6 +33,10 @@ The plugin will try to attach itself to a camera. This can be done in either one
 1) Create a single `Camera` component before the `PostUpdate` schedule. The plugin will attach itself automatically to it.
 2) Manually attach a `TouchCameraTag` component to the camera entity you want to be handled by the plugin. Useful if you have multiple active cameras or if method 1) is not possible.
 
+## Limitations
+- Plugin will always try to update the projection and the transform of the Camera. A separate mode is planned where updates are only written to a component so that the user can read them and mix them with other custom logic before applying to the camera.
+- Only viewport based panning and scaling is supported currently. That means that your finger won't stay in exactly the same position of the world view like in common implementations.
+
 ## 🔗 Bevy compatibility
 | bevy_touch_camera | bevy |
 |-------------------|------|

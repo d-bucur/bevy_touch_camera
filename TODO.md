@@ -1,7 +1,4 @@
 # TODO
-## publishing
-- presentation video/image
-- bevy asset upload
 
 ## features
 - no camera mode: only return transform and zoom, but not modify it. User can decide how to combine result with other camera moving features
