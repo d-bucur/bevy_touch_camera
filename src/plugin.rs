@@ -7,7 +7,7 @@ use bevy::{
     time::Time,
 };
 
-/// A plugin that will update camera movement based on [`Touch`](bevy::input::touch::Touch) gestures that Bevy provides
+/// A plugin that will update camera movement based on `Touch` gestures that Bevy provides
 #[derive(Default)]
 pub struct TouchCameraPlugin {
     pub config: TouchCameraConfig,
@@ -23,7 +23,7 @@ impl Plugin for TouchCameraPlugin {
 }
 
 /// Contains the configuration parameters for the plugin.
-/// A copy of this will be attached as a [`Resource`] to the [`App`].
+/// A copy of this will be attached as a `Resource` to the `App`.
 #[derive(Resource, Clone)]
 pub struct TouchCameraConfig {
     /// How far the camera will move relative to the touch drag distance. Higher is faster
@@ -50,9 +50,9 @@ impl Default for TouchCameraConfig {
     }
 }
 
-/// This is the tag that the plugin will scan for and update its [`Camera`] component.
+/// This is the tag that the plugin will scan for and update its `Camera` component.
 /// You can either attach it manually to your camera, or the plugin will try to attach it
-/// to the default camera in the [`PostStartup`] schedule
+/// to the default camera in the `PostStartup` schedule
 #[derive(Component)]
 pub struct TouchCameraTag;
 
