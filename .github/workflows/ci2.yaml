@@ -14,8 +14,8 @@ jobs:
           shared-key: ${{ hashFiles('**/Cargo.toml') }}
       - run: cargo build
       - run: cargo test
-        continue-on-error: true
+        if: always()
       - run: cargo fmt --all -- --check
-        continue-on-error: true
+        if: always()
       - run: cargo clippy -- -D warnings
-        continue-on-error: true
+        if: always()
