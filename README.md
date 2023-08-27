@@ -1,4 +1,5 @@
 ![MIT/Apache 2.0](https://img.shields.io/badge/license-MIT%2FApache-blue.svg)
+[![0.11](https://img.shields.io/badge/Bevy-0.11-blue)](https://crates.io/crates/bevy/0.11.2)
 [![Crate](https://img.shields.io/crates/v/bevy_touch_camera.svg)](https://crates.io/crates/bevy_touch_camera)
 [![Doc](https://docs.rs/bevy_touch_camera/badge.svg)](https://docs.rs/bevy_touch_camera)
 [![CI](https://github.com/d-bucur/bevy_touch_camera/actions/workflows/ci.yaml/badge.svg)](https://github.com/d-bucur/bevy_touch_camera/actions/workflows/ci.yaml)
@@ -6,6 +7,8 @@
 
 ## 🎥 Bevy Touch Camera
 A plugin for touch based camera movement. Supports one finger drag to pan and two finger pinch to zoom.
+
+![](https://github.com/d-bucur/demos/raw/master/touch_camera.webm)
 
 ## 📄 Usage
 Add `TouchCameraPlugin` to your app.

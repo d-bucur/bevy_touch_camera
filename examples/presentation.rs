@@ -3,8 +3,17 @@ use bevy_touch_camera::{TouchCameraPlugin, TouchCameraTag};
 
 fn main() {
     App::new()
-        .insert_resource(ClearColor(Color::DARK_GRAY))
-        .add_plugins((DefaultPlugins, TouchCameraPlugin::default()))
+        .insert_resource(ClearColor(Color::BLACK))
+        .add_plugins((
+            DefaultPlugins.set(WindowPlugin {
+                primary_window: Some(Window {
+                    resolution: (640., 360.).into(),
+                    ..Default::default()
+                }),
+                ..Default::default()
+            }),
+            TouchCameraPlugin::default(),
+        ))
         .add_systems(Startup, setup)
         .add_systems(Update, touch_indicators)
         .run();
@@ -37,19 +46,27 @@ fn setup(mut cmds: Commands, asset_server: Res<AssetServer>) {
     }
 
     // scene objects
-    cmds.spawn(SpriteBundle {
-        sprite: Sprite {
-            color: Color::PURPLE,
-            custom_size: Some(Vec2::new(100.0, 100.0)),
-            ..default()
-        },
-        transform: Transform::from_translation(Vec3::new(-50., 0., 0.)),
-        ..default()
-    });
+    for i in -5..5 {
+        for j in -5..5 {
+            cmds.spawn(SpriteBundle {
+                sprite: Sprite {
+                    color: Color::INDIGO,
+                    custom_size: Some(Vec2::new(100.0, 100.0)),
+                    ..default()
+                },
+                transform: Transform::from_translation(Vec3::new(
+                    i as f32 * 200.,
+                    j as f32 * 200.,
+                    0.,
+                )),
+                ..default()
+            });
+        }
+    }
 }
 
 fn touch_indicators(
-    mut indicators_q: Query<(&mut Style), With<TouchIndicatorTag>>,
+    mut indicators_q: Query<&mut Style, With<TouchIndicatorTag>>,
     touches_res: Res<Touches>,
 ) {
     for mut style in indicators_q.iter_mut() {
