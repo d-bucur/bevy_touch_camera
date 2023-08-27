@@ -17,6 +17,7 @@ jobs:
             ~/.cargo/git/db/
             target/
           key: ${{ runner.os }}-cargo-${{ hashFiles('**/Cargo.toml') }}
+          restore-keys: ${{ runner.os }}-cargo-
       - uses: dtolnay/rust-toolchain@stable
       - run: rustup component add rustfmt clippy
       - run: cargo build
