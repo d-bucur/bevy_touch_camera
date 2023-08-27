@@ -2,7 +2,7 @@
 [![Doc](https://docs.rs/bevy_touch_camera/badge.svg)](https://docs.rs/bevy_touch_camera)
 [![Crate](https://img.shields.io/crates/v/bevy_touch_camera.svg)](https://crates.io/crates/bevy_touch_camera)
 [![Bevy tracking](https://img.shields.io/badge/Bevy%20tracking-release-lightblue)](https://github.com/bevyengine/bevy/blob/main/docs/plugins_guidelines.md#main-branch-tracking)
-[![CI](https://github.com/d-bucur/bevy_touch_camera/actions/workflows/ci.yml/badge.svg)](https://github.com/d-bucur/bevy_touch_camera/actions/workflows/ci.yml)
+[![CI](https://github.com/d-bucur/bevy_touch_camera/actions/workflows/ci.yaml/badge.svg)](https://github.com/d-bucur/bevy_touch_camera/actions/workflows/ci.yaml)
 
 # 🎥 Bevy Touch Camera
 A plugin for touch based camera movement. Supports one finger drag to pan and two finger pinch to zoom.

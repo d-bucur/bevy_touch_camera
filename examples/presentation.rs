@@ -1,4 +1,4 @@
-use bevy::{prelude::*};
+use bevy::prelude::*;
 use bevy_touch_camera::{TouchCameraPlugin, TouchCameraTag};
 
 fn main() {
