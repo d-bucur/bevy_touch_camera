@@ -8,7 +8,6 @@ authors = ["Dorian Bucur <dorian.bucur@outlook.com>"]
 description = "Touch camera for Bevy that supports drag and pinch to zoom"
 repository = "https://github.com/d-bucur/bevy_touch_camera"
 homepage = "https://github.com/d-bucur/bevy_touch_camera"
-documentation = "https://docs.rs/bevy_touch_camera"
 keywords = ["bevy", "touch", "camera"]
 license = "MIT OR Apache-2.0"
 readme = "README.md"
