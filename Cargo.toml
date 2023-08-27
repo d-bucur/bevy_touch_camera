@@ -31,3 +31,7 @@ example = ["bevy/bevy_winit", "bevy/x11", "bevy/bevy_sprite"]
 [[example]]
 name = "simple"
 required-features = ["example"]
+
+[[example]]
+name = "presentation"
+required-features = ["example"]

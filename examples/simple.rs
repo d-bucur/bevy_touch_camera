@@ -2,11 +2,6 @@ use bevy::prelude::*;
 use bevy_touch_camera::{TouchCameraConfig, TouchCameraPlugin, TouchCameraTag};
 
 fn main() {
-    let config = TouchCameraConfig {
-        drag_sensitivity: 2.,
-        touch_time_min: 0.2,
-        ..Default::default()
-    };
     App::new()
         .add_plugins((
             DefaultPlugins,
