@@ -8,7 +8,7 @@
 ## 🎥 Bevy Touch Camera
 A plugin for touch based camera movement. Supports one finger drag to pan and two finger pinch to zoom.
 
-![](https://github.com/d-bucur/demos/raw/master/touch_camera.webm)
+![](https://github.com/d-bucur/demos/raw/master/touch_camera.webp)
 
 ## 📄 Usage
 Add `TouchCameraPlugin` to your app.
