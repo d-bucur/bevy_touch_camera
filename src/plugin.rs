@@ -7,6 +7,7 @@ use bevy::{
     time::Time,
 };
 
+/// A plugin that will update camera movement based on [`Touch`](bevy::input::touch::Touch) gestures that Bevy provides
 #[derive(Default)]
 pub struct TouchCameraPlugin {
     pub config: TouchCameraConfig,
@@ -21,15 +22,20 @@ impl Plugin for TouchCameraPlugin {
     }
 }
 
+/// Contains the configuration parameters for the plugin.
+/// A copy of this will be attached as a [`Resource`] to the [`App`].
 #[derive(Resource, Clone)]
 pub struct TouchCameraConfig {
-    /// TODO Drag sensitivity
+    /// How far the camera will move relative to the touch drag distance. Higher is faster
     pub drag_sensitivity: f32,
-    /// TODO Zoom sensitivity
+    /// How much the camera will zoom relative to the pinch distance using two fingers. Higher means faster.
+    /// At the moment the default is very low at 0.005 but this might change in the future
     pub zoom_sensitivity: f32,
     /// Minimum time before starting to pan in seconds. Useful to avoid panning on short taps
     pub touch_time_min: f32,
-    /// Tolerance for moving in opposite directions (-1. .. 1.). Higher values make it more tolerant. Very low values not recommended
+    /// Tolerance for pinch fingers moving in opposite directions (-1. .. 1.).
+    /// Higher values make it more tolerant.
+    /// Very low values not recommended as it would be overly sensitive
     pub opposites_tolerance: f32,
 }
 
@@ -44,6 +50,9 @@ impl Default for TouchCameraConfig {
     }
 }
 
+/// This is the tag that the plugin will scan for and update its [`Camera`] component.
+/// You can either attach it manually to your camera, or the plugin will try to attach it
+/// to the default camera in the [`PostStartup`] schedule
 #[derive(Component)]
 pub struct TouchCameraTag;
 
@@ -100,6 +109,7 @@ fn touch_pan_zoom(
     let Ok((mut transform, mut projection)) = camera_q.get_single_mut() else {
         return;
     };
+
     let touches: Vec<&touch::Touch> = touches_res.iter().collect();
 
     if touches.is_empty() {

@@ -1,10 +1,7 @@
 # TODO
 ## publishing
-- cargo.io upload
-- documentation
 - presentation video/image
 - bevy asset upload
-- github ci
 
 ## features
 - no camera mode: only return transform and zoom, but not modify it. User can decide how to combine result with other camera moving features

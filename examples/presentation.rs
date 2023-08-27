@@ -31,7 +31,7 @@ fn setup(mut cmds: Commands, asset_server: Res<AssetServer>) {
                 // background_color: Color::rgba(1.0, 0.5, 0.5, 0.7).into(),
                 ..default()
             },
-            UiImage::new(asset_server.load("pointer-hand-svgrepo-com.png")), // TODO add to toml ignore
+            UiImage::new(asset_server.load("pointer-hand-svgrepo-com.png")),
             TouchIndicatorTag,
         ));
     }
