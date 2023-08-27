@@ -11,9 +11,12 @@ jobs:
       - uses: dtolnay/rust-toolchain@stable
       - uses: Swatinem/rust-cache@v2
         with:
+          # use action built on top of actions/cache with less configuration
+          # caching on .toml here since this is a library, but generally better to do it on the .lock file
           shared-key: ${{ hashFiles('**/Cargo.toml') }}
       - run: cargo build
 
+  # this job will run after build job and download the build cache
   test:
     name: Test Suite
     runs-on: ubuntu-latest
