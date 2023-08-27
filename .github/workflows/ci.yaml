@@ -8,6 +8,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
+      - uses: dtolnay/rust-toolchain@stable
       - uses: actions/cache@v3
         with:
           path: |
@@ -17,11 +18,13 @@ jobs:
             ~/.cargo/git/db/
             target/
           key: ${{ runner.os }}-cargo-${{ hashFiles('**/Cargo.toml') }}
+          # will try to use previous cache if there was a miss. Might still be useful, but increases
+          # cache size continuously when updating dependencies
           restore-keys: ${{ runner.os }}-cargo-
-      - uses: dtolnay/rust-toolchain@stable
       - run: cargo build
       - run: cargo test
         if: always()
+      # these will run even if the build fails
       - run: cargo fmt --all -- --check
         if: always()
       - run: cargo clippy -- -D warnings
