@@ -20,7 +20,7 @@ fn setup(
 ) {
     cmds.spawn((Camera2dBundle::default(), TouchCameraTag));
 
-    let mesh = meshes.add(shape::Circle::new(50.).into()).into();
+    let mesh: Mesh2dHandle = meshes.add(shape::Circle::new(50.).into()).into();
     let material = materials.add(ColorMaterial::from(Color::PURPLE));
     for i in 0..1 {
         // Circle
