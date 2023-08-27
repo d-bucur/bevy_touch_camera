@@ -13,6 +13,7 @@ keywords = ["bevy", "touch", "camera"]
 license = "MIT OR Apache-2.0"
 readme = "README.md"
 categories = ["game-development"]
+exclude = ["assets/*"]
 
 [dependencies]
 bevy = { version = "0.11.2", default-features = false }
@@ -26,7 +27,7 @@ features = [
 
 [features]
 default = ["bevy/bevy_core_pipeline"]
-example = ["bevy/bevy_winit", "bevy/x11", "bevy/bevy_sprite"]
+example = ["bevy/bevy_winit", "bevy/x11", "bevy/bevy_sprite", "bevy/bevy_ui", "bevy/png"]
 
 [[example]]
 name = "simple"
