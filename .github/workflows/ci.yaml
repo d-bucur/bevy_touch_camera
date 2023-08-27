@@ -4,7 +4,7 @@ name: Continuous integration
 
 jobs:
   build:
-    name: Build
+    name: Build & test
     runs-on: ubuntu-latest
     steps:
       - uses: actions/cache@v2
@@ -23,9 +23,11 @@ jobs:
           toolchain: stable
           override: true
       - uses: actions-rs/cargo@v1
+        name: build
         with:
           command: build
       - uses: actions-rs/cargo@v1
+        name: check
         with:
           command: check
       - uses: actions-rs/cargo@v1
@@ -33,11 +35,13 @@ jobs:
           command: 
       - run: rustup component add rustfmt
       - uses: actions-rs/cargo@v1
+        name: fmt
         with:
           command: fmt
           args: --all -- --check
       - run: rustup component add clippy
       - uses: actions-rs/cargo@v1
+        name: clippy
         with:
           command: clippy
           args: -- -D warnings
