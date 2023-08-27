@@ -1,6 +1,6 @@
 on: [push, pull_request]
 
-name: Continuous integration
+name: Build & test
 
 jobs:
   build:
@@ -19,7 +19,6 @@ jobs:
           key: ${{ runner.os }}-cargo-${{ hashFiles('**/Cargo.toml') }}
           restore-keys: ${{ runner.os }}-cargo-
       - uses: dtolnay/rust-toolchain@stable
-      - run: rustup component add rustfmt clippy
       - run: cargo build
       - run: cargo test
         continue-on-error: true
