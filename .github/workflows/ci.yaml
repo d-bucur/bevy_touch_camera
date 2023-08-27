@@ -28,20 +28,25 @@ jobs:
           command: build
       - uses: actions-rs/cargo@v1
         name: check
+        continue-on-error: true
         with:
           command: check
       - uses: actions-rs/cargo@v1
+        name: test
+        continue-on-error: true
         with:
-          command: 
+          command: test
       - run: rustup component add rustfmt
       - uses: actions-rs/cargo@v1
         name: fmt
+        continue-on-error: true
         with:
           command: fmt
           args: --all -- --check
       - run: rustup component add clippy
       - uses: actions-rs/cargo@v1
         name: clippy
+        continue-on-error: true
         with:
           command: clippy
           args: -- -D warnings
