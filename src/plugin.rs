@@ -37,6 +37,10 @@ pub struct TouchCameraConfig {
     /// Higher values make it more tolerant.
     /// Very low values not recommended as it would be overly sensitive
     pub opposites_tolerance: f32,
+    /// How far the camera can be zoomed out.
+    pub max_scale: f32,
+    /// How far the camera can be zoomed in.
+    pub min_scale: f32,
 }
 
 impl Default for TouchCameraConfig {
@@ -46,6 +50,8 @@ impl Default for TouchCameraConfig {
             zoom_sensitivity: 0.005,
             touch_time_min: 0.01,
             opposites_tolerance: 0.,
+            min_scale: 0.001,
+            max_scale: 100.,
         }
     }
 }
@@ -152,7 +158,12 @@ fn touch_pan_zoom(
         let pinch_direction = distance_prev.length() - distance_current.length();
         projection.scale +=
             pinch_direction.signum() * delta_total * config.zoom_sensitivity * projection.scale;
-
+        if projection.scale > config.max_scale {
+            projection.scale = config.max_scale;
+        }
+        if projection.scale < config.min_scale {
+            projection.scale = config.min_scale;
+        }
         tracker.last_touch_a = Some(touches[0].position());
         tracker.last_touch_b = Some(touches[1].position());
     } else if touches.len() == 1
