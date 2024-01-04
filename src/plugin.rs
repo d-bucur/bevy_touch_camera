@@ -1,11 +1,5 @@
-use bevy::{
-    input::touch,
-    prelude::{
-        error, info, App, Camera, Commands, Component, Entity, OrthographicProjection, Plugin,
-        PostStartup, Query, Res, ResMut, Resource, Touches, Transform, Update, Vec2, Vec3, With,
-    },
-    time::Time,
-};
+use bevy::input::touch;
+use bevy::prelude::*;
 
 /// A plugin that will update camera movement based on `Touch` gestures that Bevy provides
 #[derive(Default)]
