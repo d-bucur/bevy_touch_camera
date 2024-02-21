@@ -15,10 +15,10 @@ categories = ["game-development"]
 exclude = ["assets/*"]
 
 [dependencies]
-bevy = { version = "0.12.1", default-features = false }
+bevy = { version = "0.13", default-features = false }
 
 [dev-dependencies.bevy]
-version = "0.12.1"
+version = "0.13"
 default-features = false
 features = [
     "bevy_core_pipeline",
